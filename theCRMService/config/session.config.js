@@ -13,7 +13,7 @@ module.exports = app => {
                 maxAge: 600000
             },
             store: MongoStore.create({
-                mongoUrl: process.env.DB_REMOTE || 'mongodb://localhost/basicAuth'
+                mongoUrl: process.env.DB_REMOTE || 'mongodb://localhost/theCRMService'
             })
         })
     );

@@ -2,10 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
-const userSchema = new Schema({
+const customerSchema = new Schema({
     mail: {
         type: String,
-        required: true,
+        unique: true,
+        required: [true, 'User mail required'],
         validate: {
             validator: function (email) {
                 return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
@@ -18,21 +19,25 @@ const userSchema = new Schema({
         minLegth: 1,
         maxLength: 50,
         required: true,
-        set: value => value.charAt(0).toUpperCase() + value.substring(1)
+        set: value => value.charAt(0).toUpperCase() + value.substring(1).toLowerCase()
     },
     surname: {
         type: String,
         minLegth: 1,
         maxLength: 50,
         required: true,
-        set: value => value.charAt(0).toUpperCase() + value.substring(1)
+        set: value => value.charAt(0).toUpperCase() + value.substring(1).toLowerCase()
     },
     image: {
         type: String,
         required: true,
         default: 'https://image.flaticon.com/icons/png/512/1200/1200919.png'
     },
-    user: {
+    creatorUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    lastUpdateUser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
@@ -41,6 +46,6 @@ const userSchema = new Schema({
 )
 
 
-const User = mongoose.model('User', userSchema);
+const Customer = mongoose.model('Customer', customerSchema);
 
-module.exports = User;
+module.exports = Customer;
