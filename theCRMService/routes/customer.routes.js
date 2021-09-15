@@ -27,26 +27,28 @@ router.post('/newCustomer', checkLoggedUser, (req, res) => {
 })
 
 //Edit Customer
-router.post('/edit/:customer_id', checkLoggedUser, (req, res) => {
+router.put('/editCustomer/:customer_id', checkLoggedUser, (req, res) => {
 
     const { customer_id } = req.params
     const { mail, name, surname, image } = req.body
     const lastUpdateUser = req.session.currentUser._id
 
-    console.log(customer_id)
-    console.log(req.body)
-    console.log(lastUpdateUser)
+    Customer
+        .findByIdAndUpdate(customer_id, { $set: { mail, name, surname, image, lastUpdateUser } }, { new: true })
+        .populate('lastUpdateUser')
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'DB error while updating Customer', err }))
+})
+
+//Delete Customer
+router.delete('/deleteCustomer/:customer_id', checkLoggedUser, (req, res) => {
+
+    const { customer_id } = req.params
 
     Customer
-        .findByIdAndUpdate(customer_id, { mail, name, surname: 'oso', image, lastUpdateUser }, { new: true })
-        .then(response => {
-            console.log(response)
-            res.json(response)
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({ code: 500, message: 'DB error while creating Customer', err })
-        })
+        .findByIdAndRemove(customer_id)
+        .then(() => res.json({ message: 'Customer deleted successfully' }))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error while deleting Customer', err }))
 })
 
 //Customer Details
@@ -56,12 +58,12 @@ router.get('/:customer_id', checkLoggedUser, (req, res) => {
 
     Customer
         .findById(customer_id)
+        .populate('lastUpdateUser creatorUser')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching customer details', err }))
 })
 
 
-//Delete Customer
 
 
 module.exports = router

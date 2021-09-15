@@ -5,7 +5,9 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
   mail: {
     type: String,
-    required: true,
+    unique: true,
+    required: [true, 'User mail required'],
+    lowercase: true,
     validate: {
       validator: function (email) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
@@ -15,7 +17,8 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: [true, 'Please provide a password'],
+    minlength: 8
   },
   name: {
     type: String,

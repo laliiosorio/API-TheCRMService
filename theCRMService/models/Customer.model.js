@@ -7,6 +7,7 @@ const customerSchema = new Schema({
         type: String,
         unique: true,
         required: [true, 'User mail required'],
+        lowercase: true,
         validate: {
             validator: function (email) {
                 return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)

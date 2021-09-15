@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const MONGO_URI = process.env.DB_REMOTE || "mongodb://localhost/theCRMService"
 
 mongoose
+  .set('runValidators', true)
   .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
