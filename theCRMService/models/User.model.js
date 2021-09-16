@@ -31,10 +31,12 @@ const userSchema = new Schema({
     type: String,
     minLegth: 1,
     maxLength: 50,
+    required: true,
     set: value => value.charAt(0).toUpperCase() + value.substring(1)
   },
   role: {
     type: String,
+    required: true,
     enum: ['user', 'admin'],
     default: 'user'
   }
