@@ -14,7 +14,7 @@ $ Set .env
 $ npm run dev 
 ```
 
-##### .env Variables
+#### .env Variables
 
 * Sess secret for sessions
 * Domain local to handle CORS 
@@ -83,8 +83,10 @@ CLOUDINARY_SECRET=
 | `image`         	| String             	| 
 
 
+## 	:paperclip: Postman try Endpoints
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/17557711-74f5fa99-b8fd-4f9f-866f-a3f7bd0bec21?action=collection%2Ffork&collection-url=entityId%3D17557711-74f5fa99-b8fd-4f9f-866f-a3f7bd0bec21%26entityType%3Dcollection%26workspaceId%3D72476e73-c314-420a-8268-8abd723f860e)
+
 
 ## 📜 License
 
-This software is licensed under the [MIT](https://github.com/nhn/tui.editor/blob/master/LICENSE) © [NHN](https://github.com/nhn).
+This software is licensed under the [MIT](https://github.com/nhn/tui.editor/blob/master/LICENSE) © 
