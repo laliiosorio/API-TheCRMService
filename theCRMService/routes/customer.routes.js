@@ -18,10 +18,12 @@ router.post('/newCustomer', checkLoggedUser, (req, res) => {
 
     const { mail, name, surname, image } = req.body
     const creatorUser = req.session.currentUser._id
+    const query = { mail, name, surname, creatorUser }
 
+    image && (query.image = image)
 
     Customer
-        .create({ mail, name, surname, image, creatorUser })
+        .create(query)
         .then(() => res.json({ code: 200, message: 'Customer created' }))
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while creating Customer', err }))
 })

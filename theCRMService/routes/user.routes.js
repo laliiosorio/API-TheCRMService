@@ -17,7 +17,7 @@ router.get('/', checkLoggedUser, checkAdmin, (req, res) => {
 //New User
 router.post('/newUser', checkLoggedUser, checkAdmin, (req, res) => {
 
-    const { mail, pwd, name, lastName } = req.body
+    const { mail, pwd, name, lastName, role } = req.body
 
     User
         .findOne({ mail })
@@ -32,7 +32,7 @@ router.post('/newUser', checkLoggedUser, checkAdmin, (req, res) => {
             const hashPass = bcrypt.hashSync(pwd, salt)
 
             User
-                .create({ mail, password: hashPass, name, lastName })
+                .create({ mail, password: hashPass, name, lastName, role })
                 .then(() => res.json({ code: 200, message: 'User created' }))
                 .catch(err => res.status(500).json({ code: 500, message: 'DB error while creating user', err }))
         })
