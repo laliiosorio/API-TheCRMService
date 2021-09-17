@@ -1,5 +1,5 @@
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 
 module.exports = app => {
     app.use(
@@ -16,5 +16,5 @@ module.exports = app => {
                 mongoUrl: process.env.DB_REMOTE || 'mongodb://localhost/theCRMService'
             })
         })
-    );
-};
+    )
+}

@@ -44,9 +44,14 @@ router.put('/editUser/:user_id', checkLoggedUser, checkAdmin, (req, res) => {
 
     const { user_id } = req.params
     const { mail, name, lastName } = req.body
+    const query = {}
+
+    mail && (query.mail = mail)
+    name && (query.name = name)
+    lastName && (query.lastName = lastName)
 
     User
-        .findByIdAndUpdate(user_id, { $set: { mail, name, lastName } }, { new: true })
+        .findByIdAndUpdate(user_id, query, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while updating User', err }))
 })

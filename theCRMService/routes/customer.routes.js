@@ -32,9 +32,15 @@ router.put('/editCustomer/:customer_id', checkLoggedUser, (req, res) => {
     const { customer_id } = req.params
     const { mail, name, surname, image } = req.body
     const lastUpdateUser = req.session.currentUser._id
+    const query = { lastUpdateUser }
+
+    mail && (query.mail = mail)
+    name && (query.name = name)
+    surname && (query.surname = surname)
+    image && (query.image = image)
 
     Customer
-        .findByIdAndUpdate(customer_id, { $set: { mail, name, surname, image, lastUpdateUser } }, { new: true })
+        .findByIdAndUpdate(customer_id, query, { new: true })
         .populate('lastUpdateUser')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while updating Customer', err }))
